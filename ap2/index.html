@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila 1: Introdução ao Python</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        pre {
+            background-color: #f4f4f8;
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        code {
+             font-family: 'Courier New', Courier, monospace;
+        }
+        code:not(pre > code) {
+            background-color: #eef2f7;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+        }
+        .answer-content {
+            display: none;
+        }
+        .answer-toggle-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+        .answer-toggle-button:hover {
+            background-color: #E8F0FE; /* Light blue hover */
+        }
+        .answer-toggle-button .arrow {
+            transition: transform 0.2s ease;
+        }
+        .answer-toggle-button.expanded .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-blue-50 text-slate-800 flex flex-col min-h-screen">
+
+    <header class="bg-indigo-900 text-white p-6 shadow-md">
+        <div class="container mx-auto max-w-7xl text-center flex flex-col items-center">
+            <img src="https://www.colegiosantoantonio.com.br/wp-content/uploads/2019/06/nova-logo-colegio-santo-antonio-logotipo.png" alt="Logo Colégio Santo Antônio" class="max-h-20 mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold">Apostila 1: Primeiros Passos em Python 🐍</h1>
+            <p class="text-lg md:text-xl mt-1 text-indigo-300">Educação Digital - 1ª Série - 2025 ✨</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto max-w-7xl flex flex-1 mt-4 px-4">
+        <aside class="w-1/4 md:w-1/5 lg:w-1/6 bg-indigo-800 text-white p-4 rounded-lg shadow-lg mr-4 sticky top-4 self-start max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <h2 class="text-xl font-semibold mb-4 border-b border-indigo-400 pb-2">Sumário 🧭</h2>
+            <nav id="sumarioNav">
+                <ul class="space-y-2">
+                    <li><a href="#introducao" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="introducao">1. Introdução ao Python</a></li>
+                    <li><a href="#variaveis" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="variaveis">2. Variáveis</a></li>
+                    <li><a href="#operacoes" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="operacoes">3. Operações Essenciais</a></li>
+                    <li><a href="#fluxo" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="fluxo">4. Controle de Fluxo</a></li>
+                    <li><a href="#funcoes" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="funcoes">5. Funções Básicas</a></li>
+                    <li><a href="#exercicios" class="block py-2 px-3 rounded hover:bg-indigo-700 hover:text-blue-300 transition-colors duration-200" data-section="exercicios">6. Exercícios Práticos 💡</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="w-3/4 md:w-4/5 lg:w-5/6 bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            <section id="introducao" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">1. Introdução ao Python</h2>
+                <p class="mb-4">Esta seção introduz os conceitos fundamentais da linguagem Python, preparando o terreno para um aprendizado sólido. Exploraremos os tipos de dados básicos que formam a espinha dorsal de qualquer programa Python.</p>
+                <p class="mb-4">Python é uma linguagem de programação de alto nível, conhecida por sua clareza e legibilidade, tornando-a ideal para iniciantes. Para começar a programar, é essencial compreender os tipos de dados básicos que podem ser manipulados.</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Tipos de Dados Fundamentais</h3>
+                <p class="mb-4">Em Python, cada valor possui um tipo de dado específico. Os tipos fundamentais são:</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong>Texto (string)</strong>: Representa sequências de caracteres e é delimitado por aspas simples ou duplas. É crucial que o tipo de aspas que inicia a string seja o mesmo que a encerra. Exemplo: <code>'olá, tudo bem?'</code> ou <code>"olá, tudo bem?"</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">saudacao = "Olá, mundo!"
+nome = 'Python'
+print(saudacao)
+print(nome)
+                        </code></pre>
+                    </li>
+                    <li><strong>Inteiros</strong>: São números inteiros, sejam eles positivos, negativos ou zero, sem casas decimais. A representação é direta, como se escreve. Exemplo: <code>3</code>, <code>4</code>, <code>-3</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">idade = 30
+quantidade = -5
+print(idade)
+print(quantidade)
+                        </code></pre>
+                    </li>
+                    <li><strong>Racionais (floats)</strong>: Representam números com parte decimal, utilizando o ponto como separador entre a parte inteira e a decimal. Exemplo: <code>3.0</code>, <code>4.7</code>, <code>5.5</code>, <code>-0.0</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">altura = 1.75
+preco = 19.99
+print(altura)
+print(preco)
+                        </code></pre>
+                    </li>
+                    <li><strong>Booleanos</strong>: Representam valores lógicos de verdadeiro (<code>True</code>) ou falso (<code>False</code>). A primeira letra de <code>True</code> e <code>False</code> deve ser sempre maiúscula. Em Python, <code>True</code> pode ser tratado como <code>1</code> e <code>False</code> como <code>0</code> em contextos numéricos.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">esta_chovendo = True
+tem_desconto = False
+print(esta_chovendo)
+print(tem_desconto)
+                        </code></pre>
+                    </li>
+                </ul>
+                <p class="mb-4">Outros tipos de dados mais complexos serão abordados em módulos futuros do curso.</p>
+            </section>
+
+            <section id="variaveis" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">2. Variáveis</h2>
+                <p class="mb-4">Nesta seção, você aprenderá sobre variáveis, que são essenciais para armazenar e manipular informações em seus programas Python. Entender como nomear e usar variáveis corretamente é um passo fundamental na programação.</p>
+                <p class="mb-4">Variáveis são nomes simbólicos usados para armazenar dados na memória do computador. Elas permitem que os dados sejam referenciados e manipulados ao longo do programa. A atribuição de um valor a uma variável é feita utilizando o sinal de igual (<code>=</code>).</p>
+                <p class="mb-4">Por exemplo, <code>x = 3</code> atribui o valor <code>3</code> à variável <code>x</code>. O valor de uma variável pode ser alterado a qualquer momento, bastando atribuir um novo valor a ela.</p>
+                <p class="mt-2 text-sm text-slate-600">Exemplo de declaração e reatribuição de variáveis:</p>
+                <pre><code class="language-python"># Declaração de variável
+idade = 25
+print(f"Idade inicial: {idade}")
+
+# Reatribuição de variável
+idade = 26
+print(f"Idade após reatribuição: {idade}")
+
+# Variável com texto
+nome = "Ana"
+print(f"Nome: {nome}")
+                </code></pre>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Convenções para Nomes de Variáveis</h3>
+                <p class="mb-4">Para garantir a clareza e a funcionalidade do código, siga as seguintes regras e convenções ao nomear variáveis:</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li>Devem ser representadas por uma sequência de caracteres. Exemplos: <code>x</code>, <code>y</code>, <code>a</code>, <code>variavel</code>, <code>variavel_exemplo</code>.</li>
+                    <li>Não podem iniciar com um número.</li>
+                    <li>Não podem conter espaços.</li>
+                    <li>Não devem conter caracteres acentuados.</li>
+                    <li>A ausência de aspas é o que distingue uma variável de uma string.</li>
+                </ul>
+                <p class="mt-2 text-sm text-slate-600">Exemplos de nomes válidos e inválidos:</p>
+                <pre><code class="language-python"># Nomes válidos
+minha_variavel = 10
+_contador = 0
+nomeUsuario = "João"
+
+# Nomes inválidos (causariam erro)
+# 1variavel = 5
+# valor total = 100
+# área = 50
+                </code></pre>
+            </section>
+
+            <section id="operacoes" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">3. Operações Essenciais</h2>
+                <p class="mb-4">Esta seção cobre as operações fundamentais que você pode realizar com dados em Python, incluindo operações aritméticas para cálculos e operadores booleanos para comparações lógicas, cruciais para a tomada de decisões em seus programas.</p>
+                <p class="mb-4">Python suporta diversas operações para manipular dados. As operações básicas são classificadas em aritméticas e booleanas.</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Operações Aritméticas ➕➖✖️➗</h3>
+                <p class="mb-4">Aplicáveis a dados numéricos (inteiros, floats e booleanos), estas operações seguem a lógica matemática padrão.</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong>Adição (<code>+</code>)</strong>: Realiza a soma de dados numéricos.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">resultado = 10 + 5
+print(resultado) # Saída: 15
+                        </code></pre>
+                    </li>
+                    <li><strong>Concatenação (<code>+</code>)</strong>: Para dados textuais, o operador <code>+</code> une strings. Exemplo: <code>"a" + "b"</code> resulta em <code>"ab"</code>. É importante notar que dados numéricos só podem ser adicionados a dados numéricos, e strings só podem ser concatenadas com strings.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">texto_completo = "Olá, " + "Python!"
+print(texto_completo) # Saída: Olá, Python!
+                        </code></pre>
+                    </li>
+                    <li><strong>Multiplicação (<code>*</code>)</strong>: Realiza a multiplicação de dados numéricos. Quando aplicada a uma string e um número natural <code>n</code>, a string é repetida <code>n</code> vezes. Exemplo: <code>3 * "abc"</code> resulta em <code>"abcabcabc"</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">produto = 4 * 5
+print(produto) # Saída: 20
+
+repeticao_texto = "Oi" * 3
+print(repeticao_texto) # Saída: OiOiOi
+                        </code></pre>
+                    </li>
+                    <li><strong>Divisão (<code>/</code>)</strong>: Realiza a divisão de dados numéricos. O resultado de uma divisão sempre será um float.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">divisao = 10 / 3
+print(divisao) # Saída: 3.3333333333333335
+                        </code></pre>
+                    </li>
+                    <li><strong>Potenciação (<code>**</code>)</strong>: Realiza a potenciação de dados numéricos.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">potencia = 2 ** 3 # 2 elevado a 3
+print(potencia) # Saída: 8
+                        </code></pre>
+                    </li>
+                    <li><strong>Subtração (<code>-</code>)</strong>: Realiza a subtração de dados numéricos.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">diferenca = 15 - 7
+print(diferenca) # Saída: 8
+                        </code></pre>
+                    </li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Operadores Booleanos (Comparação e Lógicos)</h3>
+                <p class="mb-4">Estas operações resultam em um valor booleano (<code>True</code> ou <code>False</code>). Elas são usadas para comparar valores ou combinar condições.</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong>Maior que (<code>&gt;</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(10 > 5) # Saída: True
+print(5 > 10) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>Maior ou igual (<code>&gt;=</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(10 >= 10) # Saída: True
+print(5 >= 10) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>Menor que (<code>&lt;</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(5 < 10) # Saída: True
+print(10 < 5) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>Menor ou igual (<code>&lt;=</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(5 <= 5) # Saída: True
+print(10 <= 5) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>Igual a (<code>==</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(5 == 5) # Saída: True
+print(5 == 10) # Saída: False
+print("Olá" == "Olá") # Saída: True
+                        </code></pre>
+                    </li>
+                    <li><strong>Diferente de (<code>!=</code>)</strong>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(5 != 10) # Saída: True
+print(5 != 5) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>Negação (<code>not</code>)</strong>: Inverte o valor booleano. Exemplo: <code>not True</code> resulta em <code>False</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(not True) # Saída: False
+print(not False) # Saída: True
+                        </code></pre>
+                    </li>
+                    <li><strong>OU (<code>or</code>)</strong>: Retorna <code>True</code> se pelo menos uma das condições for verdadeira. Retorna <code>False</code> apenas se ambas as condições forem `False`.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(True or False) # Saída: True
+print(False or False) # Saída: False
+                        </code></pre>
+                    </li>
+                    <li><strong>E (<code>and</code>)</strong>: Retorna <code>True</code> apenas se ambas as condições forem `True`.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print(True and True) # Saída: True
+print(True and False) # Saída: False
+                        </code></pre>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="fluxo" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">4. Controle de Fluxo 🚦</h2>
+                <p class="mb-4">O controle de fluxo é o que dá inteligência aos seus programas, permitindo que eles tomem decisões e repitam tarefas. Aqui você aprenderá sobre as estruturas condicionais e de repetição em Python.</p>
+                <p class="mb-4">As estruturas de controle de fluxo permitem que o programa execute blocos de código específicos com base em condições ou os repita um determinado número de vezes.</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Estruturas Condicionais (<code>if</code>, <code>elif</code>, <code>else</code>)</h3>
+                <p class="mb-4">Estas estruturas determinam a execução de um bloco de código com base em um resultado booleano.</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong><code>if</code></strong>: O bloco de código associado ao <code>if</code> é executado se a condição booleana for <code>True</code>.
+                        <pre><code class="language-python">if condicao_booleana: # Finalize com dois pontos.
+    # Código a ser executado se a condição for True
+                        </code></pre>
+                        <p class="mt-2">A <strong>indentação</strong> (espaçamento) é crucial em Python, indicando a hierarquia dos comandos. Ela define quais linhas de código pertencem a qual estrutura. Embora o tamanho da indentação não seja fixo, a consistência é obrigatória em todo o código (recomenda-se 4 espaços ou um "tab"). A indentação e os dois pontos (<code>:</code>) devem sempre acompanhar as estruturas de controle de fluxo.</p>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo de uso de <code>if</code>:</p>
+                        <pre><code class="language-python">idade = 18
+if idade >= 18:
+    print("Você é maior de idade.")
+                        </code></pre>
+                    </li>
+                    <li class="mt-4"><strong><code>elif</code> (else if)</strong>: Usado <em>imediatamente</em> após um <code>if</code> ou outro <code>elif</code>. Seu código é executado se as condições anteriores (<code>if</code> e <code>elif</code>s) forem <code>False</code> e a sua própria condição booleana for <code>True</code>.
+                        <pre><code class="language-python">if condicao1:
+    # Código para condicao1
+elif condicao2: # Finalize com dois pontos.
+    # Código a ser executado se condicao1 for False e condicao2 for True
+                        </code></pre>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo de uso de <code>if-elif-else</code>:</p>
+                        <pre><code class="language-python">temperatura = 28
+if temperatura > 30:
+    print("Está muito quente!")
+elif temperatura > 20: # Se não for > 30, verifica se é > 20
+    print("Temperatura agradável.")
+else:
+    print("Está frio.")
+                        </code></pre>
+                    </li>
+                    <li class="mt-4"><strong><code>else</code></strong>: Usado <em>imediatamente</em> após um <code>if</code> ou <code>elif</code>. O código dentro do <code>else</code> é executado se todas as condições anteriores (<code>if</code> e <code>elif</code>s) forem <code>False</code>.
+                        <pre><code class="language-python">if condicao1:
+    # Código para condicao1
+elif condicao2:
+    # Código para condicao2
+else: # Finalize com dois pontos.
+    # Código a ser executado se nenhuma das condições anteriores for True
+                        </code></pre>
+                    </li>
+                </ul>
+                <p class="mt-4">Uma estrutura condicional deve seguir as seguintes regras:</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li>Deve conter <em>exatamente um</em> <code>if</code> no início.</li>
+                    <li>Pode conter <em>quantos</em> <code>elif</code>s forem necessários após o <code>if</code> (inclusive nenhum).</li>
+                    <li>Pode conter <em>no máximo um</em> <code>else</code> no final da estrutura (inclusive nenhum).</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">Estruturas de Repetição (<code>while</code>, <code>for</code>) 🔁</h3>
+                <p class="mb-4">Estas estruturas permitem que um bloco de código seja repetido múltiplas vezes. A indentação define o bloco de código que será repetido.</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong><code>while</code></strong>: Repete o bloco de código <em>enquanto</em> a condição booleana associada for <code>True</code>.
+                        <pre><code class="language-python">while condicao_booleana: # Finalize com dois pontos.
+    # Código a ser repetido enquanto a condição for True
+                        </code></pre>
+                        <p class="mt-2"><strong>Importante</strong>: O código dentro do <code>while</code> deve incluir operações capazes de alterar o resultado da condição booleana para `False` após algumas repetições. Caso contrário, o <code>while</code> será executado indefinidamente (loop infinito).</p>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo de <code>while</code>:</p>
+                        <pre><code class="language-python">contador = 0
+while contador < 5:
+    print(f"Contador: {contador}")
+    contador += 1 # Incrementa o contador para evitar loop infinito
+                        </code></pre>
+                    </li>
+                    <li class="mt-4"><strong><code>for</code></strong>: Percorre um conjunto de dados, atribuindo cada item do conjunto a uma variável específica e executando um bloco de código para cada item. As operações dentro do <code>for</code> podem ou não depender do valor atribuído à variável.
+                        <pre><code class="language-python">for variavel in conjunto_de_dados: # Finalize com dois pontos.
+    # Código a ser executado para cada dado no conjunto
+                        </code></pre>
+                        <p class="mt-2 text-sm text-slate-600">Exemplo de <code>for</code> com <code>range()</code>:</p>
+                        <pre><code class="language-python">for i in range(3): # Gera números de 0 a 2
+    print(f"Iteração: {i}")
+                        </code></pre>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="funcoes" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">5. Funções Básicas 🛠️</h2>
+                <p class="mb-4">As funções são blocos de código reutilizáveis que realizam tarefas específicas. Nesta seção, exploraremos algumas das funções nativas mais úteis do Python, que simplificam muitas tarefas comuns de programação.</p>
+                <p class="mb-4">Python oferece um conjunto de funções pré-definidas e também permite a criação de funções personalizadas. Neste módulo, focaremos nas funções nativas mais fundamentais.</p>
+                <p class="mb-4">Uma função é executada ao digitar seu nome, seguido de parênteses que podem conter um ou mais argumentos. Os **argumentos** são os valores de "entrada" que a função utilizará em sua execução. O resultado produzido por uma função é conhecido como **valor de retorno**. Uma função, em sua essência, é um bloco de código reutilizável que executa um conjunto de operações.</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong><code>range(n)</code></strong>: Retorna uma sequência de números. Quando um único número <code>n</code> é fornecido como argumento, retorna um conjunto composto por todos os números naturais (iniciando em zero) menores que <code>n</code>.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">numeros = range(5) # Gera 0, 1, 2, 3, 4
+for num in numeros:
+    print(num)
+                        </code></pre>
+                    </li>
+                    <li><strong><code>str(x)</code></strong>: Converte o argumento <code>x</code> em uma string, agindo como se aspas tivessem sido colocadas em volta de <code>x</code>. É particularmente útil quando <code>x</code> é uma variável, o resultado de uma operação ou outra função.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">numero = 123
+texto_numero = str(numero)
+print(type(texto_numero)) # Saída: &lt;class 'str'&gt;
+                        </code></pre>
+                    </li>
+                    <li><strong><code>int(x)</code></strong>: Converte o argumento <code>x</code> em um número inteiro. <code>x</code> pode ser um número inteiro, uma string que representa um número inteiro, ou um float (neste caso, retorna a parte inteira do float, ignorando as regras de arredondamento).
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">texto_int = "45"
+numero_int = int(texto_int)
+print(type(numero_int)) # Saída: &lt;class 'int'&gt;
+
+flutuante = 3.99
+inteiro_flutuante = int(flutuante)
+print(inteiro_flutuante) # Saída: 3
+                        </code></pre>
+                    </li>
+                    <li><strong><code>float(x)</code></strong>: Converte o argumento <code>x</code> em um número float. <code>x</code> pode ser uma string que representa um número ou um inteiro. Se o resultado for um número inteiro, um <code>.0</code> é acrescentado ao final para indicar que é um float (ex: <code>2.0</code>).
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">texto_float = "12.5"
+numero_float = float(texto_float)
+print(type(numero_float)) # Saída: &lt;class 'float'&gt;
+
+inteiro_para_float = float(5)
+print(inteiro_para_float) # Saída: 5.0
+                        </code></pre>
+                    </li>
+                    <li><strong><code>input(x)</code></strong>: Solicita ao usuário que informe um dado na tela de execução e retorna esse dado no formato de string. O argumento <code>x</code>, que pode ser vazio, é uma string exibida ao usuário como solicitação.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">nome_usuario = input("Digite seu nome: ")
+print(f"Olá, {nome_usuario}!")
+                        </code></pre>
+                    </li>
+                    <li><strong><code>print(x)</code></strong>: Escreve o argumento <code>x</code> na tela de execução do código.
+                        <p class="mt-2 text-sm text-slate-600">Exemplo:</p>
+                        <pre><code class="language-python">print("Isso é uma mensagem.")
+print(123)
+                        </code></pre>
+                    </li>
+                </ul>
+                <p class="mb-4">Ao "mesclar" texto com variáveis na função <code>print</code>, duas abordagens são comuns:</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li><strong>Usando concatenação</strong>:
+                        <pre><code class="language-python">x = 3
+print("O valor " + str(x) + " está associado ao x")
+# Saída: O valor 3 está associado ao x
+                        </code></pre>
+                    </li>
+                    <li class="mt-4"><strong>Usando f-strings</strong>: Esta é uma abordagem mais moderna e legível. Basta prefixar a string com <code>f</code> e inserir a variável entre chaves <code>{}</code>. Isso dispensa o uso explícito de <code>str()</code> para conversão.
+                        <pre><code class="language-python">x = 3
+print(f"O valor {x} está associado ao x")
+# Saída: O valor 3 está associado ao x
+                        </code></pre>
+                    </li>
+                </ul>
+                <p class="mt-2">Embora a concatenação seja intuitiva, as f-strings são mais concisas e favorecem a clareza do código.</p>
+            </section>
+
+            <section id="exercicios" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-indigo-700 border-b-2 border-indigo-200 pb-2">6. Exercícios Práticos 🧠</h2>
+                <p class="mb-4">Agora é hora de colocar em prática o que você aprendeu! Os exercícios a seguir são projetados para reforçar seu entendimento dos conceitos fundamentais do Python. Tente resolvê-los antes de consultar as soluções.</p>
+                <p class="mb-4">Aplique os conhecimentos adquiridos resolvendo os exercícios a seguir:</p>
+                <ol class="list-decimal list-inside space-y-6 pl-4">
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">1. Identificação de Tipos de Dados:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Determine o tipo de dado de cada um dos seguintes valores em Python:
+                                    <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                        <li><code>"Programação é fundamental"</code></li>
+                                        <li><code>1024</code></li>
+                                        <li><code>7.5</code></li>
+                                        <li><code>True</code></li>
+                                        <li><code>"80"</code></li>
+                                        <li><code>-3.0</code></li>
+                                    </ul>
+                                </li>
+                                <li>Diferencie <code>'9'</code> de <code>9</code> em Python.</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    <li><code>"Programação é fundamental"</code>: String</li>
+                                    <li><code>1024</code>: Inteiro</li>
+                                    <li><code>7.5</code>: Float</li>
+                                    <li><code>True</code>: Booleano</li>
+                                    <li><code>"80"</code>: String</li>
+                                    <li><code>-3.0</code>: Float</li>
+                                </ul>
+                                <p class="mt-2">A diferença entre <code>'9'</code> e <code>9</code> em Python é que <code>'9'</code> é uma **string** (texto), enquanto <code>9</code> é um **inteiro** (número). Strings são usadas para representar texto e não podem ser usadas diretamente em operações matemáticas como números.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">2. Manipulação de Variáveis:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Declare uma variável <code>disciplina</code> e atribua a ela o nome de uma disciplina escolar.</li>
+                                <li>Declare uma variável <code>carga_horaria</code> e atribua um valor numérico inteiro a ela.</li>
+                                <li>Altere o valor de <code>carga_horaria</code> para um novo valor.</li>
+                                <li>Analise os seguintes nomes de variáveis e identifique quais são inválidos em Python, justificando o motivo:
+                                    <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                        <li><code>nomeCompleto</code></li>
+                                        <li><code>_contador</code></li>
+                                        <li><code>1Ano</code></li>
+                                        <li><code>valor total</code></li>
+                                        <li><code>área</code></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <pre><code class="language-python"># Exemplo de declaração e alteração
+disciplina = "Matemática"
+carga_horaria = 80
+carga_horaria = 100 # Novo valor
+                                </code></pre>
+                                <p class="mt-2"><strong>Nomes de variáveis inválidos:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    <li><code>1Ano</code>: Inválido porque começa com um número.</li>
+                                    <li><code>valor total</code>: Inválido porque contém espaço.</li>
+                                    <li><code>área</code>: Inválido porque contém caractere acentuado.</li>
+                                </ul>
+                                <p class="mt-2"><code>nomeCompleto</code> e <code>_contador</code> são válidos.</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">3. Execução de Operações:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Calcule e imprima a soma de <code>55</code> e <code>33</code>.</li>
+                                <li>Qual é o resultado da divisão de <code>25</code> por <code>4</code>?</li>
+                                <li>Ao multiplicar a string <code>"Conecte-se "</code> por <code>2</code>, qual será a saída?</li>
+                                <li>Explique a diferença funcional entre o operador <code>+</code> ao ser usado com números e ao ser usado com strings.</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <pre><code class="language-python">print(55 + 33) # Saída: 88
+print(25 / 4)  # Saída: 6.25
+print("Conecte-se " * 2) # Saída: Conecte-se Conecte-se
+                                </code></pre>
+                                <p class="mt-2">O operador <code>+</code> realiza **adição** quando usado com números (somando seus valores) e **concatenação** quando usado com strings (unindo-as para formar uma nova string).</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">4. Análise de Operadores Booleanos:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Qual o resultado da expressão <code>12 &gt; 12</code>?</li>
+                                <li>A expressão <code>False == True</code> é verdadeira ou falsa?</li>
+                                <li>O que a expressão <code>not (10 &lt;= 5)</code> retorna?</li>
+                                <li>Avalie as seguintes expressões booleanas e indique o resultado final de cada uma:
+                                    <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                        <li><code>True and True</code></li>
+                                        <li><code>False or True</code></li>
+                                        <li><code>not (True and False)</code></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    <li><code>12 &gt; 12</code>: <code>False</code></li>
+                                    <li><code>False == True</code>: Falsa</li>
+                                    <li><code>not (10 &lt;= 5)</code>: <code>True</code> (porque <code>10 &lt;= 5</code> é <code>False</code>, e <code>not False</code> é <code>True</code>)</li>
+                                </ul>
+                                <p class="mt-2"><strong>Resultados das expressões:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    <li><code>True and True</code>: <code>True</code></li>
+                                    <li><code>False or True</code>: <code>True</code></li>
+                                    <li><code>not (True and False)</code>: <code>True</code> (porque <code>True and False</code> é <code>False</code>, e <code>not False</code> é <code>True</code>)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">5. Programação com Condicionais:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Escreva um programa que solicite ao usuário um número inteiro. Se o número for positivo, imprima "Número positivo.". Caso contrário, imprima "Número não positivo.".</li>
+                                <li>Desenvolva um programa que peça a nota de um aluno (de 0 a 100).
+                                    <ul class="list-circle list-inside ml-6 mt-1 space-y-1">
+                                        <li>Se a nota for igual ou superior a 70, imprima "Aprovado.".</li>
+                                        <li>Se a nota estiver entre 50 e 69 (inclusive), imprima "Recuperação.".</li>
+                                        <li>Se a nota for inferior a 50, imprima "Reprovado.".</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <p class="font-semibold mt-2">Programa para número positivo/não positivo:</p>
+                                <pre><code class="language-python">numero = int(input("Digite um número inteiro: "))
+if numero > 0:
+    print("Número positivo.")
+else:
+    print("Número não positivo.")
+                                </code></pre>
+                                <p class="font-semibold mt-4">Programa para nota do aluno:</p>
+                                <pre><code class="language-python">nota = int(input("Digite a nota do aluno (0-100): "))
+if nota >= 70:
+    print("Aprovado.")
+elif nota >= 50 and nota <= 69:
+    print("Recuperação.")
+else:
+    print("Reprovado.")
+                                </code></pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">6. Programação com Repetições:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Utilize um loop <code>while</code> para imprimir os números de 1 a 5.</li>
+                                <li>Escreva um loop <code>while</code> que continue pedindo ao usuário para digitar uma senha até que ele digite <code>"python123"</code>.</li>
+                                <li>Empregue um loop <code>for</code> junto com a função <code>range()</code> para imprimir os números de <code>0</code> a <code>9</code>.</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <p class="font-semibold mt-2">Loop <code>while</code> para imprimir de 1 a 5:</p>
+                                <pre><code class="language-python">i = 1
+while i <= 5:
+    print(i)
+    i += 1
+                                </code></pre>
+                                <p class="font-semibold mt-4">Loop <code>while</code> para senha:</p>
+                                <pre><code class="language-python">senha = ""
+while senha != "python123":
+    senha = input("Digite a senha: ")
+    if senha != "python123":
+        print("Senha incorreta. Tente novamente.")
+print("Senha correta! Acesso concedido.")
+                                </code></pre>
+                                <p class="font-semibold mt-4">Loop <code>for</code> para imprimir os números de 0 a 9:</p>
+                                <pre><code class="language-python">for i in range(10): # Gera números de 0 a 9
+    print(i)
+                                </code></pre>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">7. Aplicação de Funções Essenciais:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Qual é a sequência de números gerada pela função <code>range(6)</code>?</li>
+                                <li>Converta o número <code>10.5</code> em uma string utilizando a função apropriada.</li>
+                                <li>Converta a string <code>"2024"</code> em um número inteiro.</li>
+                                <li>Escreva um código que use <code>input()</code> para perguntar o nome do usuário e, em seguida, use <code>print()</code> para exibir uma saudação personalizada.</li>
+                                <li>Utilizando f-strings, imprima a seguinte frase preenchendo as variáveis: "A data de hoje é <strong>{dia}/{mes}/{ano}</strong>." (Considere <code>dia = 25</code>, <code>mes = 5</code>, <code>ano = 2025</code>).</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-blue-100 text-blue-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-blue-50 p-4 rounded-md mt-2 border border-blue-200">
+                                <p><strong>Respostas:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    <li><code>range(6)</code> gera a sequência: <code>0, 1, 2, 3, 4, 5</code>.</li>
+                                    <li>Converter <code>10.5</code> para string: <code>str(10.5)</code></li>
+                                    <li>Converter <code>"2024"</code> para inteiro: <code>int("2024")</code></li>
+                                </ul>
+                                <p class="font-semibold mt-2">Código para saudação personalizada:</p>
+                                <pre><code class="language-python">nome = input("Qual é o seu nome? ")
+print(f"Olá, {nome}! Seja bem-vindo(a) à apostila de Python.")
+                                </code></pre>
+                                <p class="font-semibold mt-4">Código para imprimir a data usando f-string:</p>
+                                <pre><code class="language-python">dia = 25
+mes = 5
+ano = 2025
+print(f"A data de hoje é {dia}/{mes}/{ano}.")
+                                </code></pre>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+        </main>
+    </div>
+
+    <footer class="bg-indigo-800 text-white p-6 mt-auto text-center">
+        <div class="container mx-auto max-w-7xl">
+            <p><strong>Autor:</strong> Lucas Vasconcelos Santos</p>
+            <p><strong>Instituição:</strong> Colégio Santo Antônio</p>
+            <p><strong>Disciplina:</strong> Educação Digital</p>
+            <p><strong>Ano:</strong> 2025</p>
+            <p class="mt-2">&copy; 2025 Colégio Santo Antônio. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('#sumarioNav a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const answerToggleButtons = document.querySelectorAll('.answer-toggle-button');
+            const firstSectionId = 'introducao';
+
+            function setActiveSection(sectionId) {
+                contentSections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.section === sectionId) {
+                        link.classList.add('bg-indigo-600', 'text-white');
+                        link.classList.remove('hover:bg-indigo-700', 'hover:text-blue-300');
+                    } else {
+                        link.classList.remove('bg-indigo-600', 'text-white');
+                        link.classList.add('hover:bg-indigo-700', 'hover:text-blue-300');
+                    }
+                });
+
+                if (history.pushState) {
+                    history.pushState(null, null, '#' + sectionId);
+                } else {
+                    location.hash = '#' + sectionId;
+                }
+                window.scrollTo(0,0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const sectionId = this.dataset.section;
+                    setActiveSection(sectionId);
+                });
+            });
+
+            function handleHashChange() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    const targetSection = document.getElementById(hash);
+                    if (targetSection && Array.from(contentSections).includes(targetSection)) {
+                         setActiveSection(hash);
+                         return;
+                    }
+                }
+                setActiveSection(firstSectionId);
+            }
+
+            window.addEventListener('hashchange', handleHashChange);
+            handleHashChange();
+
+
+            answerToggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const answerContent = this.nextElementSibling;
+                    const arrow = this.querySelector('.arrow');
+                    if (answerContent.style.display === 'block') {
+                        answerContent.style.display = 'none';
+                        this.classList.remove('expanded');
+                        arrow.textContent = '▶';
+                    } else {
+                        answerContent.style.display = 'block';
+                        this.classList.add('expanded');
+                        arrow.textContent = '▼';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
