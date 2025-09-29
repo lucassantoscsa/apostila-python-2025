@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila 4: Python - Manipulação de Arquivos Externos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b45309; /* Amber-700 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #78350f; /* Amber-900 */
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        pre {
+            background-color: #fff7ed; /* Orange-50 */
+            border: 1px solid #ffedd5; /* Orange-100 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        code {
+             font-family: 'Courier New', Courier, monospace;
+        }
+        code:not(pre > code) {
+            background-color: #fce7d8; /* Orange-100 - light highlight */
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.875em;
+        }
+        .answer-content {
+            display: none;
+        }
+        .answer-toggle-button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            text-align: left;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            transition: background-color 0.2s ease;
+        }
+        .answer-toggle-button:hover {
+            background-color: #fdb97c; /* Light orange hover for buttons */
+        }
+        .answer-toggle-button .arrow {
+            transition: transform 0.2s ease;
+        }
+        .answer-toggle-button.expanded .arrow {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-orange-50 text-slate-800 flex flex-col min-h-screen">
+
+    <header class="bg-orange-800 text-white p-6 shadow-md">
+        <div class="container mx-auto max-w-7xl text-center flex flex-col items-center">
+            <img src="https://www.colegiosantoantonio.com.br/wp-content/uploads/2019/06/nova-logo-colegio-santo-antonio-logotipo.png" alt="Logo Colégio Santo Antônio" class="max-h-20 mb-4">
+            <h1 class="text-3xl md:text-4xl font-bold">Apostila 4: Python - Manipulação de Arquivos Externos 💾</h1>
+            <p class="text-lg md:text-xl mt-1 text-orange-200">Educação Digital - 1ª Série - 2025 ✨</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto max-w-7xl flex flex-1 mt-4 px-4">
+        <aside class="w-1/4 md:w-1/5 lg:w-1/6 bg-orange-700 text-white p-4 rounded-lg shadow-lg mr-4 sticky top-4 self-start max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <h2 class="text-xl font-semibold mb-4 border-b border-orange-400 pb-2">Sumário 🧭</h2>
+            <nav id="sumarioNav">
+                <ul class="space-y-2">
+                    <li><a href="#introducao_arquivos" class="block py-2 px-3 rounded hover:bg-orange-600 hover:text-orange-100 transition-colors duration-200" data-section="introducao_arquivos">1. Introdução a Arquivos</a></li>
+                    <li><a href="#funcao_open" class="block py-2 px-3 rounded hover:bg-orange-600 hover:text-orange-100 transition-colors duration-200" data-section="funcao_open">2. A Função open()</a></li>
+                    <li><a href="#lendo_e_escrevendo" class="block py-2 px-3 rounded hover:bg-orange-600 hover:text-orange-100 transition-colors duration-200" data-section="lendo_e_escrevendo">3. Funções de Manipulação</a></li>
+                    <li><a href="#exercicios" class="block py-2 px-3 rounded hover:bg-orange-600 hover:text-orange-100 transition-colors duration-200" data-section="exercicios">4. Exercícios Práticos 💡</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="w-3/4 md:w-4/5 lg:w-5/6 bg-white p-6 md:p-8 rounded-lg shadow-xl">
+            
+            <section id="introducao_arquivos" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-orange-700 border-b-2 border-orange-200 pb-2">1. Introdução a Arquivos</h2>
+                [cite_start]<p class="mb-4">Muitas vezes, usamos Python para trabalhar com arquivos já salvos em nosso computador[cite: 95]. [cite_start]Por exemplo, podemos usar Python para ler uma planilha e estudá-la ou gerar novos arquivos[cite: 96, 102].</p>
+                [cite_start]<p class="mb-4">Para que o Python possa interagir (ler ou escrever) com qualquer arquivo, o fluxo de trabalho básico é o seguinte[cite: 163, 170]:</p>
+                <ol class="list-decimal list-inside mb-4 space-y-2 pl-4">
+                    [cite_start]<li>**Abrir** o arquivo usando a função `open()` e atribuir seus dados a uma variável[cite: 106, 166].</li>
+                    [cite_start]<li>**Trabalhar** com os dados (leitura, processamento, escrita)[cite: 170].</li>
+                    <li>**Fechar** o arquivo usando o método `.close()`.</li>
+                </ol>
+                <p class="mb-4 font-bold text-orange-700">Atenção:</p>
+                [cite_start]<p class="mb-4">Todo arquivo, independente do modo de abertura, deve ser fechado após o uso[cite: 176]. [cite_start]Se não for fechado, o arquivo pode ficar inacessível ou corrompido, e as alterações de escrita podem não ser salvas[cite: 172, 175].</p>
+                <pre><code class="language-python"># 1. Abrir (exemplo)
+arquivo = open("dados.txt", "r") 
+
+# 2. Trabalhar (lendo ou escrevendo)
+# ...
+
+# 3. Fechar (Passo crucial)
+arquivo.close()
+                </code></pre>
+            </section>
+
+            <section id="funcao_open" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-orange-700 border-b-2 border-orange-200 pb-2">2. A Função <code>open()</code></h2>
+                [cite_start]<p class="mb-4">Tanto para gerar quanto para ler arquivos, uma das funções mais importantes é **`open()`**[cite: 104, 106]. [cite_start]A função `open()` é composta por três argumentos principais: **arquivo (`file`)**, **modo (`mode`)** e **codificação (`encoding`)**[cite: 108].</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">2.1. Argumento `file` (Caminho do Arquivo)</h3>
+                [cite_start]<p class="mb-4">O argumento `file` é uma string que contém o **caminho do arquivo** que será aberto[cite: 109, 110]. [cite_start]Por padrão, as pastas e subpastas são divididas pelo caractere barra (`/`)[cite: 111, 112].</p>
+                <p class="mt-2 text-sm text-slate-600">Exemplo de caminho (em um sistema operacional Windows):</p>
+                <pre><code class="language-python">open("C:/user/download/oi.txt")
+# Isso abrirá o arquivo oi.txt na pasta downloads.
+                </code></pre>
+                <p class="mt-2 text-sm text-slate-600 font-bold">Dica:</p>
+                <p class="mb-4">Se o arquivo estiver na mesma pasta (diretório) do seu código Python, você só precisa digitar o nome do arquivo. Exemplo: <code>open("meuarquivo.txt", "r")</code>.</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">2.2. Argumento `mode` (Modo de Abertura)</h3>
+                [cite_start]<p class="mb-4">O argumento `mode` é uma string de **um caractere** que indica o modo de abertura do arquivo[cite: 126, 127].</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    <li>**`'r'` (read)**: É o modo padrão. [cite_start]Python apenas **lerá** o arquivo[cite: 130, 132].</li>
+                    [cite_start]<li>**`'w'` (write)**: Python **escreverá um novo arquivo**[cite: 134, 137].
+                        [cite_start]<p class="ml-4 mt-1 font-semibold text-red-700">⚠️ **Importante:** Se já existir um arquivo de mesmo nome no caminho especificado, **esse arquivo será apagado** para dar origem ao novo arquivo escrito pelo Python[cite: 139, 146].</p>
+                    </li>
+                    [cite_start]<li>**`'a'` (append)**: Python **escreverá novas linhas** a um arquivo pré-existente[cite: 150, 152]. [cite_start]Se o arquivo não existir no caminho, um novo arquivo é criado[cite: 153, 156].</li>
+                </ul>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">2.3. Argumento `encoding` (Codificação)</h3>
+                [cite_start]<p class="mb-4">O argumento `encoding` define a codificação que será usada na criação do arquivo[cite: 157, 159]. [cite_start]É uma string e, normalmente, será **'utf-8'** ou **'ascii'**[cite: 160, 161]. O `utf-8` é recomendado por suportar a maioria dos caracteres especiais, incluindo acentos.</p>
+                <p class="mt-2 text-sm text-slate-600">Exemplo completo de abertura:</p>
+                <pre><code class="language-python"># Abrindo para leitura com codificação padrão (utf-8 é o mais comum)
+arquivo = open("lista_compras.txt", "r", encoding="utf-8")
+                </code></pre>
+            </section>
+
+            <section id="lendo_e_escrevendo" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-orange-700 border-b-2 border-orange-200 pb-2">3. Funções de Manipulação</h2>
+                [cite_start]<p class="mb-4">As funções a seguir são usadas após a abertura do arquivo (e atribuição à variável), ou seja, na etapa de "Trabalho"[cite: 170, 180, 182]. [cite_start]Para os exemplos, considere a variável **`arq`** como o arquivo aberto: `arq = open(...)`[cite: 183, 185].</p>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">3.1. Funções de Leitura (Modo `'r'`)</h3>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    [cite_start]<li>**`arq.readlines()`**: Retorna uma **lista** em que cada elemento é uma string que corresponde a uma linha do arquivo[cite: 187, 192].</li>
+                </ul>
+                <p class="mt-2 text-sm text-slate-600">Exemplo de `readlines()`:</p>
+                <pre><code class="language-python">arq = open("frutas.txt", "r")
+linhas = arq.readlines()
+print(linhas) 
+# Se o arquivo contiver:
+# Maçã
+# Banana
+# A saída será: ['Maçã\n', 'Banana']
+arq.close()
+                </code></pre>
+
+                <h3 class="text-2xl font-semibold mb-3 mt-6 text-slate-700">3.2. Funções de Escrita (Modos `'w'` e `'a'`)</h3>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    [cite_start]<li>**`arq.write(string)`**: Escreve a string que está como parâmetro no arquivo[cite: 194, 195].</li>
+                </ul>
+                <p class="mb-4 font-bold text-orange-700">Caractere de Quebra de Linha (`\n`)</p>
+                [cite_start]<p class="mb-4">O caractere especial **`\n`** é o que indica uma quebra de linha (newline)[cite: 201, 202].</p>
+                <ul class="list-disc list-inside mb-4 space-y-2 pl-4">
+                    [cite_start]<li>Em arquivos lidos, ele estará no final de toda linha lida[cite: 203, 206].</li>
+                    [cite_start]<li>Em arquivos escritos, **você deve escrevê-lo** ao final de toda linha que deseja quebrar[cite: 207, 208]. A função `write()` não adiciona uma quebra de linha automaticamente.</li>
+                </ul>
+                <p class="mt-2 text-sm text-slate-600">Exemplo de `write()`:</p>
+                <pre><code class="language-python">arq = open("saida.txt", "w")
+
+# A quebra de linha é adicionada manualmente
+arq.write("Primeira linha.\n")
+arq.write("Segunda linha sem quebra")
+
+arq.close()
+# O arquivo 'saida.txt' conterá:
+# Primeira linha.
+# Segunda linha sem quebra
+                </code></pre>
+            </section>
+            
+            <section id="exercicios" class="content-section">
+                <h2 class="text-3xl font-bold mb-6 text-orange-700 border-b-2 border-orange-200 pb-2">4. Exercícios Práticos 🧠</h2>
+                <p class="mb-4">Use os conhecimentos sobre manipulação de arquivos para responder aos exercícios.</p>
+                <ol class="list-decimal list-inside space-y-6 pl-4">
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">1. Conceitos da Função <code>open()</code>:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Quais são os três argumentos principais da função <code>open()</code>?</li>
+                                <li>Qual é a principal diferença entre os modos de abertura `'w'` (write) e `'a'` (append)?</li>
+                                <li>O que acontece se você não usar a função <code>.close()</code> após manipular um arquivo?</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-orange-100 text-orange-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-orange-50 p-4 rounded-md mt-2 border border-orange-200">
+                                <p><strong>Respostas:</strong></p>
+                                <ul class="list-disc list-inside ml-4 space-y-1">
+                                    [cite_start]<li>Os três argumentos principais são: **arquivo (`file`)**, **modo (`mode`)** e **codificação (`encoding`)**[cite: 108].</li>
+                                    [cite_start]<li>O modo **`'w'`** apaga todo o conteúdo de um arquivo existente para escrever o novo [cite: 145, 146][cite_start], enquanto o modo **`'a'`** adiciona o novo conteúdo ao final de um arquivo pré-existente[cite: 151, 152].</li>
+                                    [cite_start]<li>Se você não usar o `.close()`, o arquivo pode permanecer aberto no sistema do Python, impedindo que outros programas o acessem ou, no caso de escrita, as alterações podem não ser salvas[cite: 172, 175].</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">2. Leitura de Arquivo:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Escreva o código que abre um arquivo chamado <code>dados.txt</code> no modo de leitura (`'r'`) e usa a função `readlines()` para armazenar todas as linhas em uma variável chamada `conteudo`.</li>
+                                <li>Qual o tipo de dado da variável `conteudo` e como ele representa as linhas?</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-orange-100 text-orange-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-orange-50 p-4 rounded-md mt-2 border border-orange-200">
+                                <p><strong>Resposta:</strong></p>
+                                <pre><code class="language-python">arq = open("dados.txt", "r")
+conteudo = arq.readlines()
+arq.close()
+                                </code></pre>
+                                [cite_start]<p class="mt-2">O tipo de dado da variável `conteudo` será uma **lista**[cite: 188, 189]. [cite_start]Ele representa as linhas como uma lista em que cada elemento é uma string que corresponde a uma linha do arquivo, incluindo o caractere de quebra de linha (`\n`)[cite: 191, 192, 204].</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mb-2">
+                            <h4 class="text-lg font-semibold text-slate-800">3. Escrita em Arquivo:</h4>
+                            <ul class="list-disc list-inside ml-6 mt-2 space-y-1">
+                                <li>Qual caractere especial deve ser usado para garantir que o texto vá para uma nova linha no arquivo?</li>
+                                <li>Escreva o código que abre um arquivo chamado <code>saida.log</code> no modo de escrita (`'w'`) e insere as duas linhas a seguir: "Log iniciado" e "Processo finalizado". Não se esqueça de fechar o arquivo.</li>
+                            </ul>
+                            <button class="answer-toggle-button bg-orange-100 text-orange-800 mt-4">
+                                <span>Mostrar Resposta</span>
+                                <span class="arrow">▶</span>
+                            </button>
+                            <div class="answer-content bg-orange-50 p-4 rounded-md mt-2 border border-orange-200">
+                                <p><strong>Respostas:</strong></p>
+                                <ul class="list-disc list-inside ml-4 mt-1 space-y-1">
+                                    [cite_start]<li>O caractere especial é o **`\n`**[cite: 201, 202].</li>
+                                </ul>
+                                <pre><code class="language-python"># Código de escrita
+arq = open("saida.log", "w") 
+
+# Adicionando a quebra de linha ao final de cada string
+arq.write("Log iniciado\n")
+arq.write("Processo finalizado\n") 
+
+arq.close()
+                                </code></pre>
+                            </div>
+                        </div>
+                    </li>
+                   
+                </ol>
+            </section>
+        </main>
+    </div>
+
+    <footer class="bg-orange-800 text-white p-6 mt-auto text-center">
+        <div class="container mx-auto max-w-7xl">
+            <p><strong>Autor:</strong> Lucas Vasconcelos Santos</p>
+            <p><strong>Instituição:</strong> Colégio Santo Antônio</p>
+            <p><strong>Disciplina:</strong> Educação Digital</p>
+            <p><strong>Ano:</strong> 2025</p>
+            <p class="mt-2">&copy; 2025 Colégio Santo Antônio. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('#sumarioNav a');
+            const contentSections = document.querySelectorAll('.content-section');
+            const answerToggleButtons = document.querySelectorAll('.answer-toggle-button');
+            const firstSectionId = 'introducao_arquivos'; // Default for Apostila 4
+
+            function setActiveSection(sectionId) {
+                contentSections.forEach(section => {
+                    if (section.id === sectionId) {
+                        section.classList.add('active');
+                    } else {
+                        section.classList.remove('active');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    if (link.dataset.section === sectionId) {
+                        link.classList.add('bg-orange-600', 'text-white'); /* Active link color */
+                        link.classList.remove('hover:bg-orange-600', 'hover:text-orange-100');
+                    } else {
+                        link.classList.remove('bg-orange-600', 'text-white');
+                        link.classList.add('hover:bg-orange-600', 'hover:text-orange-100');
+                    }
+                });
+
+                if (history.pushState) {
+                    history.pushState(null, null, '#' + sectionId);
+                } else {
+                    location.hash = '#' + sectionId;
+                }
+                window.scrollTo(0,0);
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const sectionId = this.dataset.section;
+                    setActiveSection(sectionId);
+                });
+            });
+
+            function handleHashChange() {
+                const hash = window.location.hash.substring(1);
+                if (hash) {
+                    const targetSection = document.getElementById(hash);
+                    if (targetSection && Array.from(contentSections).includes(targetSection)) {
+                         setActiveSection(hash);
+                         return;
+                    }
+                }
+                setActiveSection(firstSectionId);
+            }
+
+            window.addEventListener('hashchange', handleHashChange);
+            handleHashChange();
+
+
+            answerToggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const answerContent = this.nextElementSibling;
+                    const arrow = this.querySelector('.arrow');
+                    if (answerContent.style.display === 'block') {
+                        answerContent.style.display = 'none';
+                        this.classList.remove('expanded');
+                        arrow.textContent = '▶';
+                    } else {
+                        answerContent.style.display = 'block';
+                        this.classList.add('expanded');
+                        arrow.textContent = '▼';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
